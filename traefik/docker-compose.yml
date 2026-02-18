@@ -1,0 +1,28 @@
+services:
+  traefik:
+    container_name: traefik
+    image: traefik
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/ibracorp/unraid-templates/master/icons/traefik.png
+      - net.unraid.docker.webui=http://zero:8080
+    healthcheck:
+      test: nc -zv 127.0.0.1 443
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    command:
+      - '--log.level=INFO'
+      - '--accesslog=true'
+      - '--accesslog.filters.statuscodes=400-499,500-599'
+      - '--api.dashboard=true'
+      - '--api.insecure=true'
+      - '--providers.docker'
+      - '--providers.docker.exposedbydefault=false'
+      - '--providers.file.filename=/etc/traefik.toml'
+      - '--entryPoints.https.address=:443'
+    ports:
+      - 8080:8080
+      - 443:443
