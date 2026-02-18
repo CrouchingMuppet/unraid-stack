@@ -13,6 +13,7 @@ services:
       UMASK: 22
       EULA: TRUE
       VERSION: docker
+      PLEX_CLAIM: ${PLEX_CLAIM}
     tmpfs:
       - /config/Library/Application Support/Plex Media Server/Logs:mode=1777
       - /transcode:mode=1777
