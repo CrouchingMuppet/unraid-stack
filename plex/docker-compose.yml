@@ -1,0 +1,41 @@
+services:
+  plex:
+    image: lscr.io/linuxserver/plex
+    container_name: plex
+    networks:
+      br0:
+        ipv4_address: 192.168.1.250
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 22
+      EULA: TRUE
+      VERSION: docker
+    tmpfs:
+      - /config/Library/Application Support/Plex Media Server/Logs:mode=1777
+      - /transcode:mode=1777
+    volumes:
+      - /mnt/cache/appdata/plex/config:/config
+      - /mnt/user/home-videos:/home-videos
+      - /mnt/user/movies:/movies
+      - /mnt/user/music:/music
+      - /mnt/user/photos:/photos
+      - /mnt/user/tv:/tv
+    devices:
+      - /dev/dri:/dev/dri
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/plex-logo.png
+      - net.unraid.docker.webui=http://192.168.1.250:32400
+    healthcheck:
+      test: nc -zv 127.0.0.1 32400
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+networks:
+  br0:
+    external: true
