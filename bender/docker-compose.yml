@@ -1,0 +1,28 @@
+services:
+  bender:
+    container_name: bender
+    image: jez500/bender
+    restart: unless-stopped
+    volumes:
+      - /mnt/cache/appdata/bender:/app/static
+    networks:
+      - traefik_default
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/jez500/bender/master/static/icon.png
+      - net.unraid.docker.webui=https://zero/
+      - traefik.enable=true
+      - traefik.http.routers.bender.rule=Host(`zero`)
+      - traefik.http.routers.bender.entrypoints=https
+      - traefik.http.routers.bender.tls=true
+      - traefik.http.routers.bender.service=bender
+      - traefik.http.services.bender.loadbalancer.server.port=8080
+      - traefik.http.services.bender.loadbalancer.server.scheme=http          
+    healthcheck:
+      test: nc -zv 127.0.0.1 8080
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  traefik_default:
+    external: true
