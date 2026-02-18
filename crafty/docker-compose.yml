@@ -1,0 +1,42 @@
+services:
+  # dedyn:
+  #   build: /mnt/cache/appdata/dynamicdns
+  #   container_name: dedyn
+  #   labels:
+  #     - net.unraid.docker.icon=https://desec-status.net/logo.png
+  #     - com.centurylinklabs.watchtower.enable=false
+  #   healthcheck:
+  #     test: pidof script.sh || exit 1
+  #     interval: 30s
+  #     timeout: 5s
+  #     retries: 3
+  #     start_period: 5s
+  #   restart: unless-stopped
+
+  crafty:
+    image: arcadiatechnology/crafty-4
+    container_name: crafty
+    networks:
+      br0:
+        ipv4_address: 192.168.1.240
+    labels:
+      - net.unraid.docker.icon=https://gitlab.com/crafty-controller/crafty-4/-/raw/master/app/frontend/static/assets/images/Crafty_4-0_Logo_square.ico
+      - net.unraid.docker.webui=https://crafty.localdomain
+    tmpfs:
+      - /crafty/logs:mode=1777
+    volumes:
+      - /mnt/user/backups/crafty:/crafty/backups
+      - /mnt/cache/appdata/crafty/servers:/crafty/servers
+      - /mnt/cache/appdata/crafty/config:/crafty/app/config
+      - /mnt/cache/appdata/crafty/import:/crafty/import
+    healthcheck:
+      test: pidof python3 || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+networks:
+  br0:
+    external: true
