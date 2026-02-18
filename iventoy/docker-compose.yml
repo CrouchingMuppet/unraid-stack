@@ -1,0 +1,20 @@
+services:
+  iventoy:
+    container_name: iventoy
+    image: ziggyds/iventoy
+    restart: unless-stopped
+    volumes:
+      - /mnt/user/isos:/app/iso
+    environment:
+      AUTO_START_PXE: 1
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/Core-i99/unraid-docker-templates/main/templates/icons/iventoy.png
+      - net.unraid.docker.webui=http://zero.localdomain:26000
+    healthcheck:
+      test: pidof iventoy || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    network_mode: host
+    privileged: true
