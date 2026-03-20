@@ -4,15 +4,15 @@ services:
     container_name: sabnzbd
     networks:
       - br1
-      - traefik_default
+      - networking_default
     environment:
       DEBUG: false
       PGID: 100
       PUID: 99
       TZ: Australia/Brisbane
-      UMASK: 022
+      UMASK: 22
     tmpfs:
-      - /config/Logs:mode=1777
+      - /config/logs:mode=1777
     volumes:
       - /mnt/cache/appdata/sabnzbd/config:/config
       - /mnt/user/downloads:/downloads
@@ -21,7 +21,7 @@ services:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sabnzbd-logo.png
       - net.unraid.docker.webui=https://sabnzbd.zero
       - traefik.enable=true
-      - traefik.docker.network=traefik_default
+      - traefik.docker.network=networking_default
       - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.zero`)
       - traefik.http.routers.sabnzbd.entrypoints=https
       - traefik.http.routers.sabnzbd.tls=true
@@ -39,5 +39,5 @@ services:
 networks:
   br1:
     external: true
-  traefik_default:
+  networking_default:
     external: true
