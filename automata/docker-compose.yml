@@ -11,6 +11,8 @@ services:
       PUID: 99
       TZ: Australia/Brisbane
       UMASK: 022
+    tmpfs:
+      - /config/Logs:mode=1777
     volumes:
       - /mnt/cache/appdata/sabnzbd/config:/config
       - /mnt/user/downloads:/downloads

@@ -1,18 +1,4 @@
 services:
-  # dedyn:
-  #   build: /mnt/cache/appdata/dynamicdns
-  #   container_name: dedyn
-  #   labels:
-  #     - net.unraid.docker.icon=https://desec-status.net/logo.png
-  #     - com.centurylinklabs.watchtower.enable=false
-  #   healthcheck:
-  #     test: pidof script.sh || exit 1
-  #     interval: 30s
-  #     timeout: 5s
-  #     retries: 3
-  #     start_period: 5s
-  #   restart: unless-stopped
-
   crafty:
     image: arcadiatechnology/crafty-4
     container_name: crafty
