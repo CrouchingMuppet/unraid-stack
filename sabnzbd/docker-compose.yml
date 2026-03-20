@@ -19,6 +19,7 @@ services:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sabnzbd-logo.png
       - net.unraid.docker.webui=https://sabnzbd.zero:8080
       - traefik.enable=true
+      - traefik.docker.network=traefik_default
       - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.zero`)
       - traefik.http.routers.sabnzbd.entrypoints=https
       - traefik.http.routers.sabnzbd.tls=true
