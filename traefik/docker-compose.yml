@@ -4,8 +4,8 @@ services:
     image: traefik
     restart: unless-stopped
     networks:
+      - default
       - br1
-      - traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/cache/appdata/traefik/traefik.toml:/etc/traefik.toml:ro
@@ -13,6 +13,8 @@ services:
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/ibracorp/unraid-templates/master/icons/traefik.png
       - net.unraid.docker.webui=http://zero:8080
+    extra_hosts:
+      - "zero:host-gateway"
     healthcheck:
       test: nc -zv 127.0.0.1 443
       interval: 30s
@@ -27,7 +29,6 @@ services:
       - '--providers.docker'
       - '--providers.docker.exposedbydefault=false'
       - '--providers.file.filename=/etc/traefik.toml'
-      # - '--entryPoints.http.address=:80'
       - '--entryPoints.https.address=:443'
       # - '--certificatesresolvers.desec.acme.dnschallenge.disablePropagationCheck=true'
       # - '--certificatesresolvers.desec.acme.dnschallenge=true'
@@ -35,11 +36,16 @@ services:
       # - '--certificatesresolvers.desec.acme.email=crouchingmuppet@icloud.com'
       # - '--certificatesresolvers.desec.acme.storage=/certs/desec.json'
     ports:
-      - 8080:8080
-      # - 80:80
-      - 443:443
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        network: default
+      - target: 443
+        published: 443
+        protocol: tcp
+        network: default
 
 networks:
-  traefik:
+  default:
   br1:
     external: true
