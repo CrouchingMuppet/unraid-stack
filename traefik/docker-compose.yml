@@ -4,8 +4,10 @@ services:
     image: traefik
     restart: unless-stopped
     networks:
-      - default
-      - br1
+      br0:
+        ipv4_address: 192.168.1.254
+      default:
+      br1:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/cache/appdata/traefik/traefik.toml:/etc/traefik.toml:ro
@@ -35,11 +37,10 @@ services:
       # - '--certificatesresolvers.desec.acme.dnschallenge.provider=desec'
       # - '--certificatesresolvers.desec.acme.email=crouchingmuppet@icloud.com'
       # - '--certificatesresolvers.desec.acme.storage=/certs/desec.json'
-    ports:
-      - "8080:8080"
-      - "443:443"
 
 networks:
   default:
+  br0:
+    external: true
   br1:
     external: true
