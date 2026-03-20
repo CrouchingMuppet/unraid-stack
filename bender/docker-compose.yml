@@ -9,9 +9,9 @@ services:
       - traefik_default
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/jez500/bender/master/static/icon.png
-      - net.unraid.docker.webui=https://zero/
+      - net.unraid.docker.webui=https://home.zero/
       - traefik.enable=true
-      - traefik.http.routers.bender.rule=Host(`zero`)
+      - traefik.http.routers.bender.rule=Host(`home.zero`)
       - traefik.http.routers.bender.entrypoints=https
       - traefik.http.routers.bender.tls=true
       - traefik.http.routers.bender.service=bender
