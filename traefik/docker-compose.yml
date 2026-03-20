@@ -39,11 +39,11 @@ services:
       - target: 8080
         published: 8080
         protocol: tcp
-        network: default
+        host_ip: 192.168.1.100
       - target: 443
         published: 443
         protocol: tcp
-        network: default
+        host_ip: 192.168.1.100
 
 networks:
   default:
