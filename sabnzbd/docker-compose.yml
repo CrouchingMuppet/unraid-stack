@@ -17,7 +17,7 @@ services:
       - /mnt/user/downloads/incomplete/sabnzbd:/incomplete
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sabnzbd-logo.png
-      - net.unraid.docker.webui=https://sabnzbd.zero:8080
+      - net.unraid.docker.webui=https://sabnzbd.zero
       - traefik.enable=true
       - traefik.docker.network=traefik_default
       - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.zero`)
