@@ -1,0 +1,40 @@
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd
+    container_name: sabnzbd
+    networks:
+      - br1
+      - traefik_default
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 022
+    volumes:
+      - /mnt/cache/appdata/sabnzbd/config:/config
+      - /mnt/user/downloads:/downloads
+      - /mnt/user/downloads/incomplete/sabnzbd:/incomplete
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sabnzbd-logo.png
+      - net.unraid.docker.webui=https://sabnzbd.zero:8080
+      - traefik.enable=true
+      - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.zero`)
+      - traefik.http.routers.sabnzbd.entrypoints=https
+      - traefik.http.routers.sabnzbd.tls=true
+      - traefik.http.routers.sabnzbd.service=sabnzbd
+      - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
+      - traefik.http.services.sabnzbd.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 8080
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+networks:
+  br1:
+    external: true
+  traefik_default:
+    external: true
