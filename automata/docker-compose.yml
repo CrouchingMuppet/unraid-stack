@@ -53,7 +53,6 @@ services:
     volumes:
       - /mnt/cache/appdata/qbittorrent/config:/config
       - /mnt/user/downloads:/downloads
-      - /mnt/user/downloads/transfers:/transfers
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/qbittorrent-logo.png
       - net.unraid.docker.webui=https://qbittorrent.zero
@@ -124,6 +123,7 @@ services:
       - /config/logs:mode=1777
     volumes:
       - /mnt/cache/appdata/sonarr/config:/config
+      - /mnt/user/tv:/mnt/user/tv
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-logo.png
       - net.unraid.docker.webui=https://sonarr.zero
@@ -159,6 +159,7 @@ services:
       - /config/logs:mode=1777
     volumes:
       - /mnt/cache/appdata/radarr/config:/config
+      - /mnt/user/movies:/mnt/user/movies
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/radarr-logo.png
       - net.unraid.docker.webui=https://radarr.zero
@@ -194,6 +195,7 @@ services:
       - /config/logs:mode=1777
     volumes:
       - /mnt/cache/appdata/lidarr/config:/config
+      - /mnt/user/music:/mnt/user/music
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/lidarr-logo.png
       - net.unraid.docker.webui=https://lidarr.zero
