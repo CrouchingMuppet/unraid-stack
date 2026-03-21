@@ -48,6 +48,7 @@ services:
       PUID: 99
       TZ: Australia/Brisbane
       UMASK: 022
+      WEBUI_PORT: 8000
     tmpfs:
       - /config/logs:mode=1777
     volumes:
