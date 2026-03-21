@@ -36,6 +36,183 @@ services:
       start_period: 5s
     restart: unless-stopped
 
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    networks:
+      - br1
+      - networking_default
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 022
+    tmpfs:
+      - /config/logs:mode=1777
+    volumes:
+      - /mnt/cache/appdata/qbittorrent/config:/config
+      - /mnt/user/downloads:/downloads
+      - /mnt/user/downloads/transfers:/transfers
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/qbittorrent-logo.png
+      - net.unraid.docker.webui=https://qbittorrent.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.zero`)
+      - traefik.http.routers.qbittorrent.entrypoints=https
+      - traefik.http.routers.qbittorrent.tls=true
+      - traefik.http.routers.qbittorrent.service=qbittorrent
+      - traefik.http.services.qbittorrent.loadbalancer.server.port=8080
+      - traefik.http.services.qbittorrent.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 8080
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr
+    container_name: prowlarr
+    networks:
+      - br1
+      - networking_default
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 022
+    tmpfs:
+      - /config/logs:mode=1777
+    volumes:
+      - /mnt/cache/appdata/prowlarr/config:/config
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-logo.png
+      - net.unraid.docker.webui=https://prowlarr.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.prowlarr.rule=Host(`prowlarr.zero`)
+      - traefik.http.routers.prowlarr.entrypoints=https
+      - traefik.http.routers.prowlarr.tls=true
+      - traefik.http.routers.prowlarr.service=prowlarr
+      - traefik.http.services.prowlarr.loadbalancer.server.port=9696
+      - traefik.http.services.prowlarr.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 9696
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr
+    container_name: sonarr
+    networks:
+      - br1
+      - networking_default
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 022
+    tmpfs:
+      - /config/logs:mode=1777
+    volumes:
+      - /mnt/cache/appdata/sonarr/config:/config
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-logo.png
+      - net.unraid.docker.webui=https://sonarr.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.sonarr.rule=Host(`sonarr.zero`)
+      - traefik.http.routers.sonarr.entrypoints=https
+      - traefik.http.routers.sonarr.tls=true
+      - traefik.http.routers.sonarr.service=sonarr
+      - traefik.http.services.sonarr.loadbalancer.server.port=8989
+      - traefik.http.services.sonarr.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 8989
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr
+    container_name: radarr
+    networks:
+      - br1
+      - networking_default
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 022
+    tmpfs:
+      - /config/logs:mode=1777
+    volumes:
+      - /mnt/cache/appdata/radarr/config:/config
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/radarr-logo.png
+      - net.unraid.docker.webui=https://radarr.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.radarr.rule=Host(`radarr.zero`)
+      - traefik.http.routers.radarr.entrypoints=https
+      - traefik.http.routers.radarr.tls=true
+      - traefik.http.routers.radarr.service=radarr
+      - traefik.http.services.radarr.loadbalancer.server.port=7878
+      - traefik.http.services.radarr.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 7878
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr
+    container_name: lidarr
+    networks:
+      - br1
+      - networking_default
+    environment:
+      DEBUG: false
+      PGID: 100
+      PUID: 99
+      TZ: Australia/Brisbane
+      UMASK: 022
+    tmpfs:
+      - /config/logs:mode=1777
+    volumes:
+      - /mnt/cache/appdata/lidarr/config:/config
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/lidarr-logo.png
+      - net.unraid.docker.webui=https://lidarr.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.lidarr.rule=Host(`lidarr.zero`)
+      - traefik.http.routers.lidarr.entrypoints=https
+      - traefik.http.routers.lidarr.tls=true
+      - traefik.http.routers.lidarr.service=lidarr
+      - traefik.http.services.lidarr.loadbalancer.server.port=8686
+      - traefik.http.services.lidarr.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 8686
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
 networks:
   br1:
     external: true
