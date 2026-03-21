@@ -125,6 +125,7 @@ services:
     volumes:
       - /mnt/cache/appdata/sonarr/config:/config
       - /mnt/user/tv:/mnt/user/tv
+      - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-logo.png
       - net.unraid.docker.webui=https://sonarr.zero
@@ -161,6 +162,7 @@ services:
     volumes:
       - /mnt/cache/appdata/radarr/config:/config
       - /mnt/user/movies:/mnt/user/movies
+      - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/radarr-logo.png
       - net.unraid.docker.webui=https://radarr.zero
@@ -197,6 +199,7 @@ services:
     volumes:
       - /mnt/cache/appdata/lidarr/config:/config
       - /mnt/user/music:/mnt/user/music
+      - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/lidarr-logo.png
       - net.unraid.docker.webui=https://lidarr.zero
