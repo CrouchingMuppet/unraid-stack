@@ -62,10 +62,10 @@ services:
       - traefik.http.routers.qbittorrent.entrypoints=https
       - traefik.http.routers.qbittorrent.tls=true
       - traefik.http.routers.qbittorrent.service=qbittorrent
-      - traefik.http.services.qbittorrent.loadbalancer.server.port=8080
+      - traefik.http.services.qbittorrent.loadbalancer.server.port=8000
       - traefik.http.services.qbittorrent.loadbalancer.server.scheme=http
     healthcheck:
-      test: nc -zv 127.0.0.1 8080
+      test: nc -zv 127.0.0.1 8000
       interval: 30s
       timeout: 5s
       retries: 3
