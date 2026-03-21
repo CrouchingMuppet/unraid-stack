@@ -220,7 +220,7 @@ services:
     restart: unless-stopped
 
   tdarr:
-    image: tdarr/tdarr:latest
+    image: ghcr.io/haveagitgat/tdarr
     container_name: tdarr
     networks:
       - networking_default
@@ -229,12 +229,13 @@ services:
       PGID: 100
       TZ: Australia/Brisbane
       internalNode: 'true'
+    tmpfs:
+      - /temp:mode=1777
+      - /app/logs:mode=1777
     volumes:
       - /mnt/cache/appdata/tdarr/server:/app/server
       - /mnt/cache/appdata/tdarr/configs:/app/configs
-      - /mnt/cache/appdata/tdarr/logs:/app/logs
       - /mnt/user/media:/mnt/media
-      - /mnt/cache/appdata/tdarr/temp:/temp
     devices:
       - /dev/dri:/dev/dri
     labels:
