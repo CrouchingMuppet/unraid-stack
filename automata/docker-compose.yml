@@ -216,6 +216,43 @@ services:
       start_period: 5s
     restart: unless-stopped
 
+  tdarr:
+    image: tdarr/tdarr:latest
+    container_name: tdarr
+    networks:
+      - networking_default
+    environment:
+      PUID: 99
+      PGID: 100
+      TZ: Australia/Brisbane
+      internalNode: 'true'
+    volumes:
+      - /mnt/cache/appdata/tdarr/server:/app/server
+      - /mnt/cache/appdata/tdarr/configs:/app/configs
+      - /mnt/cache/appdata/tdarr/logs:/app/logs
+      - /mnt/user/media:/mnt/media
+      - /mnt/cache/appdata/tdarr/temp:/temp
+    devices:
+      - /dev/dri:/dev/dri
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/HaveAGitGat/Tdarr/master/Docs/Images/tdarr_logo.png
+      - net.unraid.docker.webui=https://tdarr.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.tdarr.rule=Host(`tdarr.zero`)
+      - traefik.http.routers.tdarr.entrypoints=https
+      - traefik.http.routers.tdarr.tls=true
+      - traefik.http.routers.tdarr.service=tdarr
+      - traefik.http.services.tdarr.loadbalancer.server.port=8265
+      - traefik.http.services.tdarr.loadbalancer.server.scheme=http
+    healthcheck:
+      test: nc -zv 127.0.0.1 8265
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
 networks:
   br1:
     external: true
