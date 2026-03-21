@@ -235,7 +235,8 @@ services:
     volumes:
       - /mnt/cache/appdata/tdarr/server:/app/server
       - /mnt/cache/appdata/tdarr/configs:/app/configs
-      - /mnt/user/media:/mnt/media
+      - /mnt/user/movies:/movies
+      - /mnt/user/tv:/tv
     devices:
       - /dev/dri:/dev/dri
     labels:
