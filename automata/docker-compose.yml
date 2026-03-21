@@ -1,6 +1,6 @@
 services:
   sabnzbd:
-    image: lscr.io/linuxserver/sabnzbd
+    image: ghcr.io/linuxserver/sabnzbd
     container_name: sabnzbd
     networks:
       - br1
@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
 
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent
+    image: ghcr.io/linuxserver/qbittorrent
     container_name: qbittorrent
     networks:
       - br1
@@ -74,7 +74,7 @@ services:
     restart: unless-stopped
 
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr
+    image: ghcr.io/linuxserver/prowlarr
     container_name: prowlarr
     networks:
       - br1
@@ -109,7 +109,7 @@ services:
     restart: unless-stopped
 
   sonarr:
-    image: lscr.io/linuxserver/sonarr
+    image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
     networks:
       - br1
@@ -146,7 +146,7 @@ services:
     restart: unless-stopped
 
   radarr:
-    image: lscr.io/linuxserver/radarr
+    image: ghcr.io/linuxserver/radarr
     container_name: radarr
     networks:
       - br1
@@ -183,7 +183,7 @@ services:
     restart: unless-stopped
 
   lidarr:
-    image: lscr.io/linuxserver/lidarr
+    image: ghcr.io/linuxserver/lidarr
     container_name: lidarr
     networks:
       - br1
