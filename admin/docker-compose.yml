@@ -1,11 +1,39 @@
 services:
-  nas-doctor:
-    image: ghcr.io/mcdays94/nas-doctor:latest
-    container_name: nas-doctor
+  dozzle:
+    image: ghcr.io/prophetse7en/dozzle
+    container_name: dozzle
     networks:
       - networking_default
     environment:
       TZ: Australia/Brisbane
+      DOZZLE_BASE: /
+      DOZZLE_LEVEL: info
+      DOZZLE_TAILSIZE: 300
+      DOZZLE_AUTH_PROVIDER: none
+      DOZZLE_NO_ANALYTICS: true      
+    volumes:
+      - /mnt/user/appdata/dozzle:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/selfhosters/unRAID-CA-templates/master/templates/img/dozzle.png
+      - net.unraid.docker.webui=https://dozzle.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.dozzle.rule=Host(`dozzle.zero`)
+      - traefik.http.routers.dozzle.entrypoints=https
+      - traefik.http.routers.dozzle.tls=true
+      - traefik.http.routers.dozzle.service=dozzle
+      - traefik.http.services.dozzle.loadbalancer.server.port=8080
+      - traefik.http.services.dozzle.loadbalancer.server.scheme=http
+    restart: unless-stopped
+
+  nas-doctor:
+    image: ghcr.io/mcdays94/nas-doctor
+    container_name: nas-doctor
+    networks:
+      - networking_default
+    environment:
+      TZ: Australia/Sydney
       NAS_DOCTOR_INTERVAL: 24h
     volumes:
       - /mnt/user/appdata/nas-doctor:/data
