@@ -19,12 +19,13 @@ services:
       - /mnt/user/downloads/incomplete/sabnzbd:/incomplete
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sabnzbd-logo.png
-      - net.unraid.docker.webui=https://sabnzbd.zero
+      - net.unraid.docker.webui=https://sabnzbd.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.zero`)
+      - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.mist-chicken.dedyn.io`)
       - traefik.http.routers.sabnzbd.entrypoints=https
       - traefik.http.routers.sabnzbd.tls=true
+      - traefik.http.routers.sabnzbd.tls.certresolver=desec
       - traefik.http.routers.sabnzbd.service=sabnzbd
       - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
       - traefik.http.services.sabnzbd.loadbalancer.server.scheme=http
@@ -56,10 +57,10 @@ services:
       - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/qbittorrent-logo.png
-      - net.unraid.docker.webui=https://qbittorrent.zero
+      - net.unraid.docker.webui=https://qbittorrent.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.zero`)
+      - traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.mist-chicken.dedyn.io`)
       - traefik.http.routers.qbittorrent.entrypoints=https
       - traefik.http.routers.qbittorrent.tls=true
       - traefik.http.routers.qbittorrent.service=qbittorrent
@@ -91,14 +92,15 @@ services:
       - /mnt/cache/appdata/prowlarr/config:/config
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-logo.png
-      - net.unraid.docker.webui=https://prowlarr.zero
+      - net.unraid.docker.webui=https://prowlarr.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.prowlarr.rule=Host(`prowlarr.zero`)
+      - traefik.http.routers.prowlarr.rule=Host(`prowlarr.mist-chicken.dedyn.io`)
       - traefik.http.routers.prowlarr.entrypoints=https
       - traefik.http.routers.prowlarr.tls=true
       - traefik.http.routers.prowlarr.service=prowlarr
       - traefik.http.services.prowlarr.loadbalancer.server.port=9696
+      - traefik.http.routers.prowlarr.tls.certresolver=desec
       - traefik.http.services.prowlarr.loadbalancer.server.scheme=http
     healthcheck:
       test: nc -zv 127.0.0.1 9696
@@ -128,12 +130,13 @@ services:
       - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-logo.png
-      - net.unraid.docker.webui=https://sonarr.zero
+      - net.unraid.docker.webui=https://sonarr.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.sonarr.rule=Host(`sonarr.zero`)
+      - traefik.http.routers.sonarr.rule=Host(`sonarr.mist-chicken.dedyn.io`)
       - traefik.http.routers.sonarr.entrypoints=https
       - traefik.http.routers.sonarr.tls=true
+      - traefik.http.routers.sonarr.tls.certresolver=desec
       - traefik.http.routers.sonarr.service=sonarr
       - traefik.http.services.sonarr.loadbalancer.server.port=8989
       - traefik.http.services.sonarr.loadbalancer.server.scheme=http
@@ -165,12 +168,13 @@ services:
       - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/radarr-logo.png
-      - net.unraid.docker.webui=https://radarr.zero
+      - net.unraid.docker.webui=https://radarr.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.radarr.rule=Host(`radarr.zero`)
+      - traefik.http.routers.radarr.rule=Host(`radarr.mist-chicken.dedyn.io`)
       - traefik.http.routers.radarr.entrypoints=https
       - traefik.http.routers.radarr.tls=true
+      - traefik.http.routers.radarr.tls.certresolver=desec
       - traefik.http.routers.radarr.service=radarr
       - traefik.http.services.radarr.loadbalancer.server.port=7878
       - traefik.http.services.radarr.loadbalancer.server.scheme=http
@@ -202,12 +206,13 @@ services:
       - /mnt/user/downloads:/downloads
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/lidarr-logo.png
-      - net.unraid.docker.webui=https://lidarr.zero
+      - net.unraid.docker.webui=https://lidarr.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.lidarr.rule=Host(`lidarr.zero`)
+      - traefik.http.routers.lidarr.rule=Host(`lidarr.mist-chicken.dedyn.io`)
       - traefik.http.routers.lidarr.entrypoints=https
       - traefik.http.routers.lidarr.tls=true
+      - traefik.http.routers.lidarr.tls.certresolver=desec
       - traefik.http.routers.lidarr.service=lidarr
       - traefik.http.services.lidarr.loadbalancer.server.port=8686
       - traefik.http.services.lidarr.loadbalancer.server.scheme=http
@@ -241,12 +246,13 @@ services:
       - /dev/dri:/dev/dri
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/HaveAGitGat/Tdarr/master/Docs/Images/tdarr_logo.png
-      - net.unraid.docker.webui=https://tdarr.zero
+      - net.unraid.docker.webui=https://tdarr.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.tdarr.rule=Host(`tdarr.zero`)
+      - traefik.http.routers.tdarr.rule=Host(`tdarr.mist-chicken.dedyn.io`)
       - traefik.http.routers.tdarr.entrypoints=https
       - traefik.http.routers.tdarr.tls=true
+      - traefik.http.routers.tdarr.tls.certresolver=desec
       - traefik.http.routers.tdarr.service=tdarr
       - traefik.http.services.tdarr.loadbalancer.server.port=8265
       - traefik.http.services.tdarr.loadbalancer.server.scheme=http

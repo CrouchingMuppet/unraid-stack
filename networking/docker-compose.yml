@@ -8,10 +8,12 @@ services:
         ipv4_address: 192.168.1.254
       default:
       br1:
+    environment:
+      DESEC_TOKEN: ${DESEC_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/cache/appdata/traefik/traefik.toml:/etc/traefik.toml:ro
-      # - /mnt/cache/appdata/certs:/certs
+      - /mnt/cache/appdata/certs:/certs
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/ibracorp/unraid-templates/master/icons/traefik.png
       - net.unraid.docker.webui=http://192.168.1.254:8080
@@ -30,11 +32,11 @@ services:
       - '--providers.docker.exposedbydefault=false'
       - '--providers.file.filename=/etc/traefik.toml'
       - '--entryPoints.https.address=:443'
-      # - '--certificatesresolvers.desec.acme.dnschallenge.disablePropagationCheck=true'
-      # - '--certificatesresolvers.desec.acme.dnschallenge=true'
-      # - '--certificatesresolvers.desec.acme.dnschallenge.provider=desec'
-      # - '--certificatesresolvers.desec.acme.email=crouchingmuppet@icloud.com'
-      # - '--certificatesresolvers.desec.acme.storage=/certs/desec.json'
+      - '--certificatesresolvers.desec.acme.dnschallenge.disablePropagationCheck=true'
+      - '--certificatesresolvers.desec.acme.dnschallenge=true'
+      - '--certificatesresolvers.desec.acme.dnschallenge.provider=desec'
+      - '--certificatesresolvers.desec.acme.email=crouchingmuppet@icloud.com'
+      - '--certificatesresolvers.desec.acme.storage=/certs/desec.json'
 
   iventoy:
     container_name: iventoy

@@ -16,12 +16,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/selfhosters/unRAID-CA-templates/master/templates/img/dozzle.png
-      - net.unraid.docker.webui=https://dozzle.zero
+      - net.unraid.docker.webui=https://dozzle.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.dozzle.rule=Host(`dozzle.zero`)
+      - traefik.http.routers.dozzle.rule=Host(`dozzle.mist-chicken.dedyn.io`)
       - traefik.http.routers.dozzle.entrypoints=https
       - traefik.http.routers.dozzle.tls=true
+      - traefik.http.routers.dozzle.tls.certresolver=desec
       - traefik.http.routers.dozzle.service=dozzle
       - traefik.http.services.dozzle.loadbalancer.server.port=8080
       - traefik.http.services.dozzle.loadbalancer.server.scheme=http
@@ -47,12 +48,13 @@ services:
       - /mnt:/host/mnt:ro
     labels:
       - net.unraid.docker.icon=https://raw.githubusercontent.com/mcdays94/nas-doctor/main/icons/icon3.png
-      - net.unraid.docker.webui=https://nasdoctor.zero
+      - net.unraid.docker.webui=https://nasdoctor.mist-chicken.dedyn.io
       - traefik.enable=true
       - traefik.docker.network=networking_default
-      - traefik.http.routers.nasdoctor.rule=Host(`nasdoctor.zero`)
+      - traefik.http.routers.nasdoctor.rule=host(`nasdoctor.mist-chicken.dedyn.io`)
       - traefik.http.routers.nasdoctor.entrypoints=https
       - traefik.http.routers.nasdoctor.tls=true
+      - traefik.http.routers.nasdoctor.tls.certresolver=desec
       - traefik.http.routers.nasdoctor.service=nasdoctor
       - traefik.http.services.nasdoctor.loadbalancer.server.port=8060
       - traefik.http.services.nasdoctor.loadbalancer.server.scheme=http
