@@ -1,0 +1,36 @@
+services:
+  nas-doctor:
+    image: ghcr.io/mcdays94/nas-doctor:latest
+    container_name: nas-doctor
+    networks:
+      - networking_default
+    environment:
+      TZ: Australia/Brisbane
+      NAS_DOCTOR_INTERVAL: 24h
+    volumes:
+      - /mnt/user/appdata/nas-doctor:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/local/emhttp:/var/local/emhttp:ro
+      - /dev:/dev:ro
+      - /sys:/sys:ro
+      - /boot:/host/boot:ro
+      - /var/log:/host/log:ro
+      - /etc/unraid-version:/etc/unraid-version:ro
+      - /mnt:/host/mnt:ro
+    labels:
+      - net.unraid.docker.icon=https://raw.githubusercontent.com/mcdays94/nas-doctor/main/icons/icon3.png
+      - net.unraid.docker.webui=https://nasdoctor.zero
+      - traefik.enable=true
+      - traefik.docker.network=networking_default
+      - traefik.http.routers.nasdoctor.rule=Host(`nasdoctor.zero`)
+      - traefik.http.routers.nasdoctor.entrypoints=https
+      - traefik.http.routers.nasdoctor.tls=true
+      - traefik.http.routers.nasdoctor.service=nasdoctor
+      - traefik.http.services.nasdoctor.loadbalancer.server.port=8060
+      - traefik.http.services.nasdoctor.loadbalancer.server.scheme=http
+    privileged: true
+    restart: unless-stopped
+
+networks:
+  networking_default:
+    external: true
