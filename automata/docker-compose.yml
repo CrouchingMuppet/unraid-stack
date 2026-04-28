@@ -63,6 +63,7 @@ services:
       - traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.mist-chicken.dedyn.io`)
       - traefik.http.routers.qbittorrent.entrypoints=https
       - traefik.http.routers.qbittorrent.tls=true
+      - traefik.http.routers.qbittorrent.tls.certresolver=desec
       - traefik.http.routers.qbittorrent.service=qbittorrent
       - traefik.http.services.qbittorrent.loadbalancer.server.port=8000
       - traefik.http.services.qbittorrent.loadbalancer.server.scheme=http
@@ -98,9 +99,9 @@ services:
       - traefik.http.routers.prowlarr.rule=Host(`prowlarr.mist-chicken.dedyn.io`)
       - traefik.http.routers.prowlarr.entrypoints=https
       - traefik.http.routers.prowlarr.tls=true
+      - traefik.http.routers.prowlarr.tls.certresolver=desec
       - traefik.http.routers.prowlarr.service=prowlarr
       - traefik.http.services.prowlarr.loadbalancer.server.port=9696
-      - traefik.http.routers.prowlarr.tls.certresolver=desec
       - traefik.http.services.prowlarr.loadbalancer.server.scheme=http
     healthcheck:
       test: nc -zv 127.0.0.1 9696
